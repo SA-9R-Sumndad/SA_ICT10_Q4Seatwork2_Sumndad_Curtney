@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Classmates</title>
+
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: rgb(216, 238, 255);
+            color: rgb(24, 24, 61);
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(24, 24, 61);
+        }
+
+        .form-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .list-title {
+            color:rgb(24, 24, 61);
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 95%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #4facfe;
+            color: rgb(24, 24, 61);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #aadbff;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>My Classmates</h1>
+
+    <!-- INPUT -->
+    <div class="form-box">
+        <h3>Add a Classmate</h3>
+        <input type="text" id="name" placeholder="Enter name">
+        <input type="text" id="section" placeholder="Enter grade and section">
+        <input type="text" id="subject" placeholder="Enter favorite subject">
+        <button onclick="addClassmate()">Add Classmate</button>
+    </div>
+
+    <!-- LABEL -->
+    <h2 class="list-title">Classmate List</h2>
+
+    <!-- RESULT -->
+    <div id="list"></div>
+</div>
+
+<script>
+class Classmate {
+    constructor(name, section, favorite_subject) {
+        this.name = name;
+        this.section = section;
+        this.favorite_subject = favorite_subject;
+    }
+
+    introduce() {
+        return `Hi! My name is ${this.name}. I am from grade ${this.section} and my favorite subject is ${this.favorite_subject}.`;
+    }
+}
+
+// EMPTY
+let classmates = [];
+
+// DISPLAY
+function displayClassmates() {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+
+    classmates.forEach((cm, index) => {
+        let div = document.createElement("div");
+        div.className = "card";
+        div.innerText = cm.introduce();
+        list.appendChild(div);
+    });
+}
+
+// ADD
+function addClassmate() {
+    let name = document.getElementById("name").value;
+    let section = document.getElementById("section").value;
+    let subject = document.getElementById("subject").value;
+
+    if (name === "" || section === "" || subject === "") {
+        alert("Please fill out all fields.");
+        return;
+    }
+
+    let newClassmate = new Classmate(name, section, subject);
+    classmates.push(newClassmate);
+
+    displayClassmates();
+
+    // CLEAR
+    document.getElementById("name").value = "";
+    document.getElementById("section").value = "";
+    document.getElementById("subject").value = "";
+}
+</script>
+
+</body>
+</html>
